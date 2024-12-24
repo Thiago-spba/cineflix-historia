@@ -1,0 +1,11 @@
+# Ignorar dependências do projeto
+node_modules/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de configuração do sistema
+.DS_Store
+
+# Ignorar cache do editor
+.vscode/
