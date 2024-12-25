@@ -4,7 +4,7 @@
   "description": "Aplicação de vídeos educativos",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -12,6 +12,7 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@testing-library/react": "^16.1.0",
     "axios": "^1.7.9",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
@@ -21,7 +22,7 @@
     "react-use": "^17.6.0"
   },
   "devDependencies": {
-    "json-server": "^0.17.3"
+    "json-server": "^0.17.4"
   },
   "engines": {
     "node": ">=16.0.0",

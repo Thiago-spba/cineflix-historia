@@ -2,7 +2,7 @@ import React from 'react';
 
 function VideoItem({ title, url }) {
   // Extração do ID do vídeo do URL do YouTube (compatível com vários formatos)
-  const videoId = url.match(/(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/)?.[1];
+  const videoId = url.match(/(?:youtube\.com\/.*(?:v=|embed\/)|youtu\.be\/)([^&?]+)/)?.[1];
   console.log('URL recebida:', url, 'ID extraído:', videoId);
 
   return (
@@ -22,9 +22,15 @@ function VideoItem({ title, url }) {
       )}
       <h3 style={styles.title}>{title}</h3>
       <div style={styles.icons}>
-        <button style={styles.icon}>👍</button>
-        <button style={styles.icon}>⭐</button>
-        <button style={styles.icon}>🔗</button>
+        <button style={styles.icon} title="Curtir">👍</button>
+        <button style={styles.icon} title="Favoritar">⭐</button>
+        <button
+          style={styles.icon}
+          title="Copiar Link"
+          onClick={() => navigator.clipboard.writeText(url)}
+        >
+          🔗
+        </button>
       </div>
     </div>
   );
@@ -38,12 +44,14 @@ const styles = {
     textAlign: 'center',
     width: '300px',
     margin: '10px',
-    border: '2px solid red',
+    border: '2px solid #444',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
   },
   video: {
     width: '100%',
-    height: '315px', // Proporção 16:9
+    height: '200px', // Proporção ajustada para manter boa visualização
     borderRadius: '10px',
+    border: 'none',
   },
   title: {
     fontSize: '1.2rem',
@@ -60,7 +68,7 @@ const styles = {
     fontSize: '1.2rem',
     backgroundColor: 'transparent',
     border: 'none',
-    color: 'red',
+    color: '#f00',
     cursor: 'pointer',
     transition: 'transform 0.2s ease',
   },

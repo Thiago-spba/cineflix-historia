@@ -28,13 +28,13 @@ function AdminPage() {
   const fetchVideos = async () => {
     try {
       const response = await axios.get('http://localhost:3001/videos');
-      const shuffledVideos = shuffleVideos(response.data); // Embaralhar os vídeos
-      setVideos(shuffledVideos);
+      console.log('Vídeos carregados:', response.data); // Verificar os vídeos no console
+      setVideos(shuffleVideos(response.data));
     } catch (error) {
       console.error('Erro ao carregar vídeos:', error);
     }
   };
-
+  
   // Adicionar vídeo
   const addVideo = async () => {
     if (title.trim() === '' || url.trim() === '') {
@@ -246,3 +246,13 @@ function AdminPage() {
 }
 
 export default AdminPage;
+const fetchVideos = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/videos');
+    const shuffledVideos = shuffleVideos(response.data);
+    console.log('Vídeos carregados:', shuffledVideos); // Verificar os dados carregados
+    setVideos(shuffledVideos);
+  } catch (error) {
+    console.error('Erro ao carregar vídeos:', error);
+  }
+};

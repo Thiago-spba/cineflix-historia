@@ -9,3 +9,6 @@ node_modules/
 
 # Ignorar cache do editor
 .vscode/
+
+# evitar que ele seja enviado ao repositório do Git.
+.env

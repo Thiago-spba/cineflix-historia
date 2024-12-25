@@ -7,14 +7,16 @@ function Home() {
   // Função para carregar e embaralhar os vídeos do JSON Server
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://localhost:3001/videos'); 
+      const response = await fetch('http://localhost:3001/videos');
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar os vídeos: ${response.status}`);
+      }
       const data = await response.json();
-      setVideos(shuffleVideos(data)); 
+      setVideos(shuffleVideos(data)); // Embaralha os vídeos antes de salvar
     } catch (error) {
       console.error('Erro ao carregar os vídeos:', error);
     }
   };
-
   // Função para embaralhar os vídeos
   const shuffleVideos = (videos) => {
     const shuffled = [...videos];
