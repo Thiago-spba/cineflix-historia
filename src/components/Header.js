@@ -49,7 +49,7 @@ function Header() {
         style={styles.floatingButton}
         onMouseEnter={(e) => handleHoverEnterFloating(e)}
         onMouseLeave={(e) => handleHoverLeaveFloating(e)}
-        onClick={() => window.location.href = '/admin'}
+        onClick={() => (window.location.href = '/admin')}
       >
         H+
       </button>

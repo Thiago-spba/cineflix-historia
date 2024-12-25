@@ -28,13 +28,14 @@ function AdminPage() {
   const fetchVideos = async () => {
     try {
       const response = await axios.get('http://localhost:3001/videos');
-      console.log('Vídeos carregados:', response.data); // Verificar os vídeos no console
-      setVideos(shuffleVideos(response.data));
+      const shuffledVideos = shuffleVideos(response.data);
+      console.log('Vídeos carregados:', shuffledVideos); // Verificar os dados carregados
+      setVideos(shuffledVideos);
     } catch (error) {
       console.error('Erro ao carregar vídeos:', error);
     }
   };
-  
+
   // Adicionar vídeo
   const addVideo = async () => {
     if (title.trim() === '' || url.trim() === '') {
@@ -47,11 +48,10 @@ function AdminPage() {
       const newVideo = { title, url };
       const response = await axios.post('http://localhost:3001/videos', newVideo);
       const updatedVideos = [...videos, { ...newVideo, id: response.data.id }];
-      setVideos(shuffleVideos(updatedVideos)); 
+      setVideos(shuffleVideos(updatedVideos));
       setTitle('');
       setUrl('');
 
-      // Mostrar confetes por 10 segundos
       setShowConfetti(true);
       setMessage('Vídeo adicionado com sucesso!');
       setTimeout(() => {
@@ -76,7 +76,7 @@ function AdminPage() {
     try {
       await axios.delete(`http://localhost:3001/videos/${id}`);
       const updatedVideos = videos.filter((video) => video.id !== id);
-      setVideos(shuffleVideos(updatedVideos)); 
+      setVideos(shuffleVideos(updatedVideos));
       setMessage('Vídeo excluído com sucesso!');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -246,13 +246,3 @@ function AdminPage() {
 }
 
 export default AdminPage;
-const fetchVideos = async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/videos');
-    const shuffledVideos = shuffleVideos(response.data);
-    console.log('Vídeos carregados:', shuffledVideos); // Verificar os dados carregados
-    setVideos(shuffledVideos);
-  } catch (error) {
-    console.error('Erro ao carregar vídeos:', error);
-  }
-};

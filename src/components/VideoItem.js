@@ -1,85 +1,129 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function VideoItem({ title, url }) {
-  // Extração do ID do vídeo do URL do YouTube (compatível com vários formatos)
-  const videoId = url.match(/(?:youtube\.com\/.*(?:v=|embed\/)|youtu\.be\/)([^&?]+)/)?.[1];
-  console.log('URL recebida:', url, 'ID extraído:', videoId);
-
+function Header() {
   return (
-    <div style={styles.card}>
-      {videoId ? (
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}`}
-          title={title}
-          style={styles.video}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      ) : (
-        <div style={styles.errorMessage}>
-          <p>URL inválida ou vídeo indisponível</p>
-        </div>
-      )}
-      <h3 style={styles.title}>{title}</h3>
-      <div style={styles.icons}>
-        <button style={styles.icon} title="Curtir">👍</button>
-        <button style={styles.icon} title="Favoritar">⭐</button>
-        <button
-          style={styles.icon}
-          title="Copiar Link"
-          onClick={() => navigator.clipboard.writeText(url)}
-        >
-          🔗
-        </button>
+    <header style={styles.header}>
+      <h1 style={styles.title}>CINEFLIX HISTORIA</h1>
+      <div style={styles.navButtons}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <button
+            style={styles.navButton}
+            onMouseEnter={(e) => handleHoverEnter(e)}
+            onMouseLeave={(e) => handleHoverLeave(e)}
+          >
+            Home
+          </button>
+        </Link>
+        <Link to="/objetivo" style={{ textDecoration: 'none' }}>
+          <button
+            style={styles.navButton}
+            onMouseEnter={(e) => handleHoverEnter(e)}
+            onMouseLeave={(e) => handleHoverLeave(e)}
+          >
+            Objetivo
+          </button>
+        </Link>
+        <Link to="/aprendizagem" style={{ textDecoration: 'none' }}>
+          <button
+            style={styles.navButton}
+            onMouseEnter={(e) => handleHoverEnter(e)}
+            onMouseLeave={(e) => handleHoverLeave(e)}
+          >
+            Aprendizagem
+          </button>
+        </Link>
+        <Link to="/contato" style={{ textDecoration: 'none' }}>
+          <button
+            style={styles.navButton}
+            onMouseEnter={(e) => handleHoverEnter(e)}
+            onMouseLeave={(e) => handleHoverLeave(e)}
+          >
+            Contato
+          </button>
+        </Link>
       </div>
-    </div>
+
+      {/* Botão flutuante H+ */}
+      <button
+        style={styles.floatingButton}
+        onMouseEnter={(e) => handleHoverEnterFloating(e)}
+        onMouseLeave={(e) => handleHoverLeaveFloating(e)}
+        onClick={() => (window.location.href = '/admin')}
+      >
+        H+
+      </button>
+    </header>
   );
 }
 
+// Efeitos de hover para os botões
+function handleHoverEnter(e) {
+  e.target.style.backgroundColor = 'red';
+  e.target.style.color = 'black';
+}
+
+function handleHoverLeave(e) {
+  e.target.style.backgroundColor = 'transparent';
+  e.target.style.color = 'red';
+}
+
+// Efeitos de hover para o botão flutuante H+
+function handleHoverEnterFloating(e) {
+  e.target.style.backgroundColor = 'black';
+  e.target.style.color = 'red';
+}
+
+function handleHoverLeaveFloating(e) {
+  e.target.style.backgroundColor = 'red';
+  e.target.style.color = 'black';
+}
+
 const styles = {
-  card: {
-    backgroundColor: '#222',
-    padding: '15px',
-    borderRadius: '10px',
+  header: {
     textAlign: 'center',
-    width: '300px',
-    margin: '10px',
-    border: '2px solid #444',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-  },
-  video: {
-    width: '100%',
-    height: '200px', // Proporção ajustada para manter boa visualização
-    borderRadius: '10px',
-    border: 'none',
+    padding: '20px',
+    backgroundColor: '#000', // Fundo preto
+    position: 'relative',
   },
   title: {
-    fontSize: '1.2rem',
-    color: '#fff',
-    margin: '10px 0',
+    color: 'red',
+    fontSize: '3rem',
+    marginBottom: '10px',
   },
-  icons: {
+  navButtons: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '10px',
-    marginTop: '10px',
+    gap: '15px',
   },
-  icon: {
-    fontSize: '1.2rem',
+  navButton: {
+    padding: '10px 20px',
+    border: '2px solid red',
     backgroundColor: 'transparent',
-    border: 'none',
-    color: '#f00',
-    cursor: 'pointer',
-    transition: 'transform 0.2s ease',
-  },
-  iconHover: {
-    transform: 'scale(1.2)',
-  },
-  errorMessage: {
-    color: '#f00',
+    color: 'red',
+    borderRadius: '5px',
     fontSize: '1rem',
-    marginTop: '10px',
+    transition: 'all 0.3s ease',
+  },
+  floatingButton: {
+    position: 'fixed',
+    top: '20px',
+    right: '20px',
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    backgroundColor: 'red',
+    color: 'black',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    border: '2px solid red',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+    cursor: 'pointer',
+    transition: 'transform 0.3s ease, background-color 0.3s ease',
   },
 };
 
-export default VideoItem;
+export default Header;

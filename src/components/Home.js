@@ -17,6 +17,7 @@ function Home() {
       console.error('Erro ao carregar os vídeos:', error);
     }
   };
+
   // Função para embaralhar os vídeos
   const shuffleVideos = (videos) => {
     const shuffled = [...videos];

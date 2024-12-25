@@ -1,6 +1,5 @@
 const events = require('events');
 events.EventEmitter.defaultMaxListeners = 20; // Aumenta o limite de listeners
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
