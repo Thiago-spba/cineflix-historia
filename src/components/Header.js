@@ -4,45 +4,13 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header style={styles.header}>
-      <h1 style={styles.title}>CINEFLIX HISTORIA</h1>
-      <div style={styles.navButtons}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <button
-            style={styles.navButton}
-            onMouseEnter={(e) => handleHoverEnter(e)}
-            onMouseLeave={(e) => handleHoverLeave(e)}
-          >
-            Home
-          </button>
-        </Link>
-        <Link to="/objetivo" style={{ textDecoration: 'none' }}>
-          <button
-            style={styles.navButton}
-            onMouseEnter={(e) => handleHoverEnter(e)}
-            onMouseLeave={(e) => handleHoverLeave(e)}
-          >
-            Objetivo
-          </button>
-        </Link>
-        <Link to="/aprendizagem" style={{ textDecoration: 'none' }}>
-          <button
-            style={styles.navButton}
-            onMouseEnter={(e) => handleHoverEnter(e)}
-            onMouseLeave={(e) => handleHoverLeave(e)}
-          >
-            Aprendizagem
-          </button>
-        </Link>
-        <Link to="/contato" style={{ textDecoration: 'none' }}>
-          <button
-            style={styles.navButton}
-            onMouseEnter={(e) => handleHoverEnter(e)}
-            onMouseLeave={(e) => handleHoverLeave(e)}
-          >
-            Contato
-          </button>
-        </Link>
-      </div>
+      <h1 style={styles.title}>CINEFLIX HISTÓRIA</h1>
+      <nav style={styles.navButtons}>
+        <NavButton to="/" label="Home" />
+        <NavButton to="/objetivo" label="Objetivo" />
+        <NavButton to="/aprendizagem" label="Aprendizagem" />
+        <NavButton to="/contato" label="Contato" />
+      </nav>
 
       {/* Botão flutuante H+ */}
       <button
@@ -54,6 +22,21 @@ function Header() {
         H+
       </button>
     </header>
+  );
+}
+
+// Componente reutilizável para botões de navegação
+function NavButton({ to, label }) {
+  return (
+    <Link to={to} style={{ textDecoration: 'none' }}>
+      <button
+        style={styles.navButton}
+        onMouseEnter={(e) => handleHoverEnter(e)}
+        onMouseLeave={(e) => handleHoverLeave(e)}
+      >
+        {label}
+      </button>
+    </Link>
   );
 }
 
@@ -79,6 +62,7 @@ function handleHoverLeaveFloating(e) {
   e.target.style.color = 'black';
 }
 
+// Estilos
 const styles = {
   header: {
     textAlign: 'center',

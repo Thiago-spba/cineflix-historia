@@ -10,7 +10,10 @@ import AdminPage from './components/AdminPage';
 function App() {
   return (
     <Router>
+      {/* Cabeçalho do site */}
       <Header />
+
+      {/* Rotas principais */}
       <Routes>
         {/* Página inicial */}
         <Route path="/" element={<Home />} />

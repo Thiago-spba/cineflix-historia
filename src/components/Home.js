@@ -3,6 +3,8 @@ import VideoRow from './VideoRow';
 
 function Home() {
   const [videos, setVideos] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true); // Estado para exibir carregamento
+  const [error, setError] = useState(null); // Estado para erros
 
   // Função para carregar e embaralhar os vídeos do JSON Server
   const fetchVideos = async () => {
@@ -15,6 +17,9 @@ function Home() {
       setVideos(shuffleVideos(data)); // Embaralha os vídeos antes de salvar
     } catch (error) {
       console.error('Erro ao carregar os vídeos:', error);
+      setError('Não foi possível carregar os vídeos. Tente novamente mais tarde.');
+    } finally {
+      setIsLoading(false); // Sempre termina o carregamento
     }
   };
 
@@ -34,10 +39,34 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ paddingTop: '70px', backgroundColor: '#111', minHeight: '100vh' }}>
-      <VideoRow title="Vídeos Disponíveis" videos={videos} />
+    <div style={styles.container}>
+      {isLoading && <p style={styles.loading}>Carregando vídeos...</p>}
+
+      {error && <p style={styles.error}>{error}</p>}
+
+      {!isLoading && !error && (
+        <VideoRow title="Vídeos Disponíveis" videos={videos} />
+      )}
     </div>
   );
 }
+
+const styles = {
+  container: {
+    paddingTop: '20px', // Aproxima a seção de vídeos do topo
+    backgroundColor: '#111',
+    minHeight: '100vh',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  loading: {
+    color: '#fff',
+    fontSize: '1.5rem',
+  },
+  error: {
+    color: '#ff4747',
+    fontSize: '1.5rem',
+  },
+};
 
 export default Home;
