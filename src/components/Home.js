@@ -9,7 +9,7 @@ function Home() {
   // Função para carregar e embaralhar os vídeos do JSON Server
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://localhost:3001/videos');
+      const response = await fetch('https://cineflix-json-server.onrender.com/videos');
       if (!response.ok) {
         throw new Error(`Erro ao buscar os vídeos: ${response.status}`);
       }
