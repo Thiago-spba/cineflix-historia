@@ -16,7 +16,7 @@ function Home() {
       const data = await response.json();
       setVideos(shuffleVideos(data)); // Embaralha os vídeos antes de salvar
     } catch (error) {
-      console.error('Erro ao carregar os vídeos:', error);
+      console.error('Erro ao carregar os vídeos:', error.message || error);
       setError('Não foi possível carregar os vídeos. Tente novamente mais tarde.');
     } finally {
       setIsLoading(false); // Sempre termina o carregamento

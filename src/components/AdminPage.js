@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
+
+const API_URL = "https://cineflix-json-server.onrender.com";
 
 function AdminPage() {
   const [videos, setVideos] = useState([]);
@@ -27,12 +29,13 @@ function AdminPage() {
   // Função para carregar vídeos
   const fetchVideos = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/videos');
+      const response = await axios.get(`${API_URL}/videos`);
       const shuffledVideos = shuffleVideos(response.data);
       console.log('Vídeos carregados:', shuffledVideos); // Verificar os dados carregados
       setVideos(shuffledVideos);
     } catch (error) {
-      console.error('Erro ao carregar vídeos:', error);
+      console.error('Erro ao carregar vídeos:', error.response?.data || error.message);
+      setMessage(`Erro ao carregar vídeos: ${error.response?.data?.message || 'Erro desconhecido'}`);
     }
   };
 
@@ -46,7 +49,7 @@ function AdminPage() {
 
     try {
       const newVideo = { title, url };
-      const response = await axios.post('http://localhost:3001/videos', newVideo);
+      const response = await axios.post(`${API_URL}/videos`, newVideo);
       const updatedVideos = [...videos, { ...newVideo, id: response.data.id }];
       setVideos(shuffleVideos(updatedVideos));
       setTitle('');
@@ -62,8 +65,8 @@ function AdminPage() {
         setMessage('');
       }, 10000);
     } catch (error) {
-      console.error('Erro ao adicionar vídeo:', error);
-      setMessage('Erro ao adicionar vídeo!');
+      console.error('Erro ao adicionar vídeo:', error.response?.data || error.message);
+      setMessage(`Erro ao adicionar vídeo: ${error.response?.data?.message || 'Erro desconhecido'}`);
       setTimeout(() => setMessage(''), 3000);
     }
   };
@@ -74,14 +77,14 @@ function AdminPage() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:3001/videos/${id}`);
+      await axios.delete(`${API_URL}/videos/${id}`);
       const updatedVideos = videos.filter((video) => video.id !== id);
       setVideos(shuffleVideos(updatedVideos));
       setMessage('Vídeo excluído com sucesso!');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      console.error('Erro ao excluir vídeo:', error);
-      setMessage('Erro ao excluir vídeo!');
+      console.error('Erro ao excluir vídeo:', error.response?.data || error.message);
+      setMessage(`Erro ao excluir vídeo: ${error.response?.data?.message || 'Erro desconhecido'}`);
       setTimeout(() => setMessage(''), 3000);
     }
   };
