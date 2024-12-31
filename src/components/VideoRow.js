@@ -5,7 +5,8 @@ function VideoRow({ title, videos }) {
   // Função para extrair o ID do vídeo do YouTube
   const getYouTubeVideoId = (url) => {
     try {
-      return new URL(url).searchParams.get('v') || '';
+      const videoId = new URL(url).searchParams.get('v');
+      return videoId || ''; // Retorna o ID ou string vazia
     } catch {
       return ''; // Retorna string vazia se a URL for inválida
     }
@@ -48,6 +49,7 @@ const styles = {
     color: 'red',
     textAlign: 'center',
     marginBottom: '20px',
+    fontSize: '1.8rem',
   },
   videoGrid: {
     display: 'flex',
@@ -66,6 +68,7 @@ const styles = {
   videoTitle: {
     marginTop: '10px',
     fontWeight: 'bold',
+    color: '#fff',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -73,6 +76,7 @@ const styles = {
   noVideos: {
     textAlign: 'center',
     color: 'gray',
+    fontSize: '1.2rem',
   },
 };
 
