@@ -15,8 +15,8 @@ function Header() {
       {/* Botão flutuante H+ */}
       <button
         style={styles.floatingButton}
-        onMouseEnter={(e) => handleHoverEnterFloating(e)}
-        onMouseLeave={(e) => handleHoverLeaveFloating(e)}
+        onMouseEnter={handleHoverEnterFloating}
+        onMouseLeave={handleHoverLeaveFloating}
         onClick={() => (window.location.href = '/admin')}
       >
         H+
@@ -31,8 +31,8 @@ function NavButton({ to, label }) {
     <Link to={to} style={{ textDecoration: 'none' }}>
       <button
         style={styles.navButton}
-        onMouseEnter={(e) => handleHoverEnter(e)}
-        onMouseLeave={(e) => handleHoverLeave(e)}
+        onMouseEnter={handleHoverEnter}
+        onMouseLeave={handleHoverLeave}
       >
         {label}
       </button>
@@ -62,7 +62,7 @@ function handleHoverLeaveFloating(e) {
   e.target.style.color = 'black';
 }
 
-// Estilos
+// Estilos com responsividade
 const styles = {
   header: {
     textAlign: 'center',
@@ -79,6 +79,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     gap: '15px',
+    flexWrap: 'wrap', // Permite que os botões quebrem para a próxima linha em telas menores
   },
   navButton: {
     padding: '10px 20px',
@@ -107,6 +108,38 @@ const styles = {
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
     cursor: 'pointer',
     transition: 'transform 0.3s ease, background-color 0.3s ease',
+  },
+
+  // Responsividade
+  '@media (max-width: 768px)': {
+    title: {
+      fontSize: '2rem', // Reduz o tamanho do título
+    },
+    navButton: {
+      padding: '8px 16px',
+      fontSize: '0.9rem',
+    },
+    floatingButton: {
+      width: '40px',
+      height: '40px',
+      top: '10px',
+      right: '10px',
+    },
+  },
+  '@media (max-width: 480px)': {
+    title: {
+      fontSize: '1.5rem',
+    },
+    navButton: {
+      padding: '6px 12px',
+      fontSize: '0.8rem',
+    },
+    floatingButton: {
+      width: '35px',
+      height: '35px',
+      top: '5px',
+      right: '5px',
+    },
   },
 };
 

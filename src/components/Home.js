@@ -53,19 +53,22 @@ function Home() {
 
 const styles = {
   container: {
-    paddingTop: '20px', // Aproxima a seção de vídeos do topo
+    paddingTop: '20px',
     backgroundColor: '#111',
     minHeight: '100vh',
     color: '#fff',
     textAlign: 'center',
+    padding: '10px',
   },
   loading: {
     color: '#fff',
     fontSize: '1.5rem',
+    margin: '20px 0',
   },
   error: {
     color: '#ff4747',
     fontSize: '1.5rem',
+    margin: '20px 0',
   },
 };
 
